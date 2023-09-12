@@ -13,29 +13,35 @@ interface fifo_interface(input clk, rstn);
     output i_wren;
     output i_rden;
     output i_wrdata;
-    input full;
-    input empty;
-    input data_out;
+    input o_full;
+    input o_empty;
+     bit o_alm_full;
+  bit o_alm_empty;
+    input o_rddata;
   endclocking
   
   clocking amon_cb @(posedge clk);
     default input #1 output #1;
-    input wr;
-    input rd;
-    input data_in;
-    input full;
-    input empty;
-    input data_out;
+    input i_wren;
+    input i_rden;
+    input i_wrdata;
+    input o_full;
+    input o_empty;
+     bit o_alm_full;
+  bit o_alm_empty;
+    input o_rddata;
   endclocking
   
   clocking pmon_cb @(posedge clk);
     default input #1 output #1;
-    input wr;
-    input rd;
-    input data_in;
-    input full;
-    input empty;
-    input data_out;
+    input i_wren;
+    input i_rden;
+    input i_wrdata;
+    input o_full;
+    input o_empty;
+     bit o_alm_full;
+  bit o_alm_empty;
+    input o_rddata;
   endclocking
   
   modport dri_mp (input clk, rstn, clocking dri_cb);

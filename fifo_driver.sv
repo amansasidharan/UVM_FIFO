@@ -14,9 +14,9 @@ class fifo_driver extends uvm_driver#(fifo_seq_item);
   endfunction
 
   virtual task run_phase(uvm_phase phase);
-    vif.driver_mp.driver_cb.i_wren <= 'b0;
-    vif.driver_mp.driver_cb.i_rden <= 'b0;
-    vif.driver_mp.driver_cb.i_wrdata <= 'b0;
+    vif.dri_mp.dri_cb.i_wren <= 'b0;
+    vif.dri_mp.dri_cb.i_rden <= 'b0;
+    vif.dri_mp.dri_cb.i_wrdata <= 'b0;
     forever begin
       seq_item_port.get_next_item(req);
       if(req.i_wren == 1)
@@ -28,18 +28,18 @@ class fifo_driver extends uvm_driver#(fifo_seq_item);
   endtask
   
     virtual task main_write(input [127:0] din);
-    @(posedge vif.driver_mp.clk)
-    vif.driver_mp.driver_cb.i_wren <= 'b1;
-    vif.driver_mp.driver_cb.i_wrdata <= din;
-    @(posedge vif.driver_mp.clk)
-    vif.driver_mp.driver_cb.i_wren <= 'b0;
+    @(posedge vif.dri_mp.clk)
+    vif.dri_mp.dri_cb.i_wren <= 'b1;
+    vif.dri_mp.dri_cb.i_wrdata <= din;
+    @(posedge vif.dri_mp.clk)
+    vif.dri_mp.dri_cb.i_wren <= 'b0;
   endtask
   
   virtual task main_read();
-    @(posedge vif.driver_mp.clk)
-    vif.driver_mp.driver_cb.i_rden <= 'b1;
-    @(posedge vif.driver_mp.clk)
-    vif.driver_mp.driver_cb.i_rden <= 'b0;
+    @(posedge vif.dri_mp.clk)
+    vif.dri_mp.dri_cb.i_rden <= 'b1;
+    @(posedge vif.dri_mp.clk)
+    vif.driver_mp.dri_cb.i_rden <= 'b0;
   endtask
 
 endclass

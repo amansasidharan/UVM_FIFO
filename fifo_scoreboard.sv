@@ -13,7 +13,7 @@ class fifo_scoreboard extends uvm_scoreboard;
   
   int queue[$];
   
-  function void write(input fifo_sequence_item item_got);
+  function void write(input fifo_seq  _item item_got);
     bit [127:0] data;
     if(item_got.i_wren == 'b1)begin
       queue.push_back(item_got.i_wrdata);

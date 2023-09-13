@@ -32,9 +32,9 @@ class fifo_monitor extends uvm_monitor;
            item_got.o_alm_empty = vif.mon_mp.m_cb.o_alm_empty;
         item_got_port.write(item_got);
       end
-      if((vif.mon_mp.mon_cb.i_rden == 1)&&(vif.mon_mp.mon_cb.i_rden == 0))
+      if((vif.mon_mp.mon_cb.i_rden == 1)&&(vif.mon_mp.mon_cb.i_wren == 0))
        begin
-        @(posedge vif.mon_mp.clk)
+        
          $display("\nRead enable is high and write enable is low");
         item_got.o_rddata = vif.mon_mp.mon_cb.o_rddata;
         item_got.i_rden = 'b1;
@@ -45,31 +45,21 @@ class fifo_monitor extends uvm_monitor;
         item_got.o_alm_empty = vif.mon_mp.m_cb.o_alm_empty;
         item_got_port.write(item_got);
       end
-      if((vif.mon_mp.mon_cb.i_rden == 1)&&(vif.mon_mp.mon_cb.i_rden == 1))
+      if((vif.mon_mp.mon_cb.i_rden == 1)&&(vif.mon_mp.mon_cb.i_wren == 1))
        begin
-        @(posedge vif.mon_mp.clk)
+      
          $display("\nRead enable and write enable is high");
           item_got.i_wrdata = vif.mon_mp.mon_cb.i_wrdata;
         item_got.i_rddata = vif.mon_mp.mon_cb.i_rddata;
         item_got.i_rden = 'b1;
         item_got.i_wren = 'b1;
-         item_got.o_full = vif.mon_mp.mon_cb.o_full;
-        item_got.o_empty = vif.mon_mp.m_cb.o_empty;
-        item_got.o_alm_full = vif.mon_mp.mon_cb.o_alm_full;
-        item_got.o_alm_empty = vif.mon_mp.m_cb.o_alm_empty;
         item_got_port.write(item_got);
       end
-         if((vif.mon_mp.mon_cb.i_rden == 0)&&(vif.mon_mp.mon_cb.i_rden == 0))
+      if((vif.mon_mp.mon_cb.i_rden == 0)&&(vif.mon_mp.mon_cb.i_wren == 0))
        begin
-        @(posedge vif.mon_mp.clk)
          $display("\nRead enable and write enable is low");
-        item_got.i_rddata = vif.mon_mp.mon_cb.i_rddata;
         item_got.i_rden = 'b0;
         item_got.i_wren = 'b0;
-         item_got.o_full = vif.mon_mp.mon_cb.o_full;
-        item_got.o_empty = vif.mon_mp.m_cb.o_empty;
-        item_got.o_alm_full = vif.mon_mp.mon_cb.o_alm_full;
-        item_got.o_alm_empty = vif.mon_mp.m_cb.o_alm_empty;
         item_got_port.write(item_got);
       end
     end

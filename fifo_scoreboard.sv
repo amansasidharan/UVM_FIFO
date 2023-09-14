@@ -15,7 +15,7 @@ class fifo_scoreboard extends uvm_scoreboard;
   bit[127:0] check_fifo[$];
   
   function void write(input fifo_seq_item item_got);
-    bit [127:0] data;
+    bit [127:0] examdata;
     if(item_got.i_wren == 'b1)begin
        if(check_fifo.size()<1024) begin
         counter =counter ++;
@@ -47,7 +47,7 @@ else if(check_fifo.size() >=1020 && check_fifo.size() < 1024)
     else if (item_got.i_rden == 'b1)begin
  if(check_fifo.size() >= 'd1)begin
         counter= counter--;
-        data = check_fifo.pop_front();
+        examdata = check_fifo.pop_front();
    `uvm_info("Read Data", $sformatf("data: %0h o_rddata: %0h o_empty: %0b o_alm_empty: %0b", data, item_got.o_rddata, item_got.o_empty,item_got.o_alm_empty), UVM_LOW);
         if(data == item_got.o_rddata)begin
           $display("-------- 		Pass! 		--------");
@@ -68,7 +68,7 @@ else if(check_fifo.size() >=1020 && check_fifo.size() < 1024)
     else
             $display("No match");
               counter= counter--;
-        data = check_fifo.pop_front();
+        examdata = check_fifo.pop_front();
    `uvm_info("Read Data", $sformatf("data: %0h o_rddata: %0h o_empty: %0b  o_alm_empty: %0b", data, item_got.o_rddata, item_got.o_empty , item_got.o_alm_empty), UVM_LOW);
        if(data == item_got.o_rddata)begin
           $display("-------- 		Pass! 		--------");

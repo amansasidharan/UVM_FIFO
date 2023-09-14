@@ -57,8 +57,29 @@ else if(check_fifo.size() >=1020 && check_fifo.size() < 1024)
           $display("--------		Check empty	--------");
         end
       end
-
-       else 
+ else if(check_fifo.size() >0 && check_fifo.size()<3 )
+ begin
+          
+             $display("The reference fifo is  Almost empty");
+             if(item_got.o_alm_empty==1)
+            begin
+              $display("Dut output is matched with reference model");
+            end
+    else
+            $display("No match");
+              counter= counter--;
+        data = check_fifo.pop_front();
+   `uvm_info("Read Data", $sformatf("data: %0h o_rddata: %0h o_empty: %0b  o_alm_empty: %0b", data, item_got.o_rddata, item_got.o_empty , item_got.o_alm_empty), UVM_LOW);
+       if(data == item_got.o_rddata)begin
+          $display("-------- 		Pass! 		--------");
+        end
+        else begin
+          $display("--------		Fail!		--------");
+          $display("--------		Check empty	--------");
+        end
+   
+ end
+   else 
             begin
               $display("The reference fifo is empty");
             end

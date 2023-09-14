@@ -50,7 +50,7 @@ class fifo_monitor extends uvm_monitor;
       
          $display("\nRead enable and write enable is high");
           item_got.i_wrdata = vif.mon_mp.mon_cb.i_wrdata;
-        item_got.o_rddata = vif.mon_mp.mon_cb.i_rddata;
+        item_got.o_rddata = vif.mon_mp.mon_cb.o_rddata;
         item_got.i_rden = 'b1;
         item_got.i_wren = 'b1;
         item_got_port.write(item_got);

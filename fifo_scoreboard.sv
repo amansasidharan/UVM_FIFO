@@ -49,7 +49,7 @@ else if(check_fifo.size() >=1020 && check_fifo.size() < 1024)
         counter= counter--;
         examdata = check_fifo.pop_front();
    `uvm_info("Read Data", $sformatf("data: %0h o_rddata: %0h o_empty: %0b o_alm_empty: %0b", data, item_got.o_rddata, item_got.o_empty,item_got.o_alm_empty), UVM_LOW);
-        if(data == item_got.o_rddata)begin
+   if(examdata == item_got.o_rddata)begin
           $display("-------- 		Pass! 		--------");
         end
         else begin

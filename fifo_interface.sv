@@ -26,6 +26,9 @@ interface fifo_interface(input clk, rstn);
      input o_alm_full;
   input o_alm_empty;
     input o_rddata;
+    input i_wren;
+    input i_rden;
+    input i_wrdata;
   endclocking
 
   modport dri_mp (input clk, rstn, clocking dri_cb);

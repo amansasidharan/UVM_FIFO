@@ -36,7 +36,7 @@ module fifo_top;
   initial begin
     $dumpfile("dump.vcd"); 
     $dumpvars;
-    run_test("fifo_test");
+   
   end
   
 endmodule

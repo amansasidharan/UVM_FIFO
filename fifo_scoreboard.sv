@@ -12,7 +12,7 @@ class fifo_scoreboard extends uvm_scoreboard;
     super.build_phase(phase);
   endfunction
   
-  int check_fifo[$];
+  bit[127:0] check_fifo[$];
   
   function void write(input fifo_seq_item item_got);
     bit [127:0] data;

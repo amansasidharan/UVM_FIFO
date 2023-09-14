@@ -39,7 +39,7 @@ class fifo_driver extends uvm_driver#(fifo_seq_item);
     @(posedge vif.dri_mp.clk)
     vif.dri_mp.dri_cb.i_rden <= 'b1;
     @(posedge vif.dri_mp.clk)
-    vif.driver_mp.dri_cb.i_rden <= 'b0;
+    vif.dri_mp.dri_cb.i_rden <= 'b0;
   endtask
 
 endclass

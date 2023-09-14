@@ -1,6 +1,7 @@
 class fifo_scoreboard extends uvm_scoreboard;
   uvm_analysis_imp#(fifo_seq_item, fifo_scoreboard) item_got_export;
   `uvm_component_utils(fifo_scoreboard)
+  int counter;
   
   function new(string name = "fifo_scoreboard", uvm_component parent);
     super.new(name, parent);
@@ -11,18 +12,43 @@ class fifo_scoreboard extends uvm_scoreboard;
     super.build_phase(phase);
   endfunction
   
-  int queue[$];
+  int check_fifo[$];
   
-  function void write(input fifo_seq  _item item_got);
+  function void write(input fifo_seq_item item_got);
     bit [127:0] data;
     if(item_got.i_wren == 'b1)begin
+       if(check_fifo.size()<1024) begin
+        counter =counter ++;
       queue.push_back(item_got.i_wrdata);
       `uvm_info("write Data", $sformatf("i_wren: %0b i_rden: %0b i_wrdata: %0h o_full: %0b",item_got.i_wren, item_got.i_rden,item_got.i_wrdata, item_got.o_full), UVM_LOW);
     end
+else if(check_fifo.size() >=1020 && check_fifo.size() < 1024)
+        begin
+            
+          $display("The reference fifo is  Almost full");
+          if(item_got.o_alm_full==1)
+            begin
+              $display("Dut output is matched with reference model");
+            end
+
+          else
+            $display("No match");
+        counter =counter ++;
+      check_fifo.push_back(item_got.i_wrdata);
+      `uvm_info("write Data", $sformatf("i_wren: %0b i_rden: %0b i_wrdata: %0h o_full: %0b  o_alm_full: %0b",item_got.i_wren, item_got.i_rden,item_got.i_wrdata, item_got.o_full, item_got.o_alm_full), UVM_LOW);
+        end
+          else 
+            begin
+            
+        $display("The reference fifo is full");
+            end
+    end
+      
     else if (item_got.i_rden == 'b1)begin
-      if(queue.size() >= 'd1)begin
-        data = queue.pop_front();
-        `uvm_info("Read Data", $sformatf("data: %0h o_rddata: %0h o_empty: %0b", data, item_got.o_rddata, item_got.o_empty), UVM_LOW);
+ if(check_fifo.size() >= 'd1)begin
+        counter= counter--;
+        data = check_fifo.pop_front();
+   `uvm_info("Read Data", $sformatf("data: %0h o_rddata: %0h o_empty: %0b o_alm_empty: %0b", data, item_got.o_rddata, item_got.o_empty,item_got.o_alm_empty), UVM_LOW);
         if(data == item_got.o_rddata)begin
           $display("-------- 		Pass! 		--------");
         end
@@ -31,6 +57,11 @@ class fifo_scoreboard extends uvm_scoreboard;
           $display("--------		Check empty	--------");
         end
       end
+
+       else 
+            begin
+              $display("The reference fifo is empty");
+            end
     end
   endfunction
 endclass

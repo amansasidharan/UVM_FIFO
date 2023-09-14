@@ -19,7 +19,7 @@ class fifo_scoreboard extends uvm_scoreboard;
     if(item_got.i_wren == 'b1)begin
        if(check_fifo.size()<1024) begin
         counter =counter ++;
-      queue.push_back(item_got.i_wrdata);
+      check_fifo.push_back(item_got.i_wrdata);
       `uvm_info("write Data", $sformatf("i_wren: %0b i_rden: %0b i_wrdata: %0h o_full: %0b",item_got.i_wren, item_got.i_rden,item_got.i_wrdata, item_got.o_full), UVM_LOW);
     end
 else if(check_fifo.size() >=1020 && check_fifo.size() < 1024)

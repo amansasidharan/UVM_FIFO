@@ -18,7 +18,14 @@ class fifo_seq_item extends uvm_sequence_item;
   `uvm_field_int(o_alm_empty, UVM_ALL_ON)
   `uvm_field_int(o_rddata, UVM_ALL_ON)
   `uvm_object_utils_end
+
+  
   constraint c1 {i_wren != i_rden;}
+
+  function void pre_randomize();
+    if(i_rden)
+      i_wrdata.rand_mode(0);
+  endfunction
   
   function new(string name = "fifo_seq_item");
     super.new(name);

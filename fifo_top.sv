@@ -31,6 +31,9 @@ module fifo_top;
   
   initial begin
     uvm_config_db#(virtual fifo_interface)::set(null, "", "vif", tif);
+     run_test("fifo_test");
+  end
+  initial begin
     $dumpfile("dump.vcd"); 
     $dumpvars;
     run_test("fifo_test");

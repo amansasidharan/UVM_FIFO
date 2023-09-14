@@ -13,11 +13,11 @@ interface fifo_interface(input clk, rstn);
     output i_wren;
     output i_rden;
     output i_wrdata;
-    input o_full;
+ /*   input o_full;
     input o_empty;
-     bit o_alm_full;
-  bit o_alm_empty;
-    input o_rddata;
+     input o_alm_full;
+  input o_alm_empty;
+    input o_rddata;  */
   endclocking
   
   clocking mon_cb @(posedge clk);
@@ -27,8 +27,8 @@ interface fifo_interface(input clk, rstn);
     input i_wrdata;
     input o_full;
     input o_empty;
-     bit o_alm_full;
-  bit o_alm_empty;
+     input o_alm_full;
+  input o_alm_empty;
     input o_rddata;
   endclocking
 

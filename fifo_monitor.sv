@@ -27,7 +27,7 @@ class fifo_monitor extends uvm_monitor;
         item_got.i_wren = 'b1;
         item_got.i_rden = 'b0;
         item_got.o_full = vif.mon_mp.mon_cb.o_full;
-          item_got.o_empty = vif.mon_mp.m_cb.o_empty;
+          item_got.o_empty = vif.mon_mp.mon_cb.o_empty;
         item_got.o_alm_full = vif.mon_mp.mon_cb.o_alm_full;
            item_got.o_alm_empty = vif.mon_mp.m_cb.o_alm_empty;
         item_got_port.write(item_got);

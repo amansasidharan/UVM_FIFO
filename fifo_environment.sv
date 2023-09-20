@@ -5,6 +5,7 @@
 class fifo_environment extends uvm_env;
   fifo_agent f_agt;
   fifo_scoreboard f_scb;
+  fifo_coverage f_cov;
   `uvm_component_utils(fifo_environment)
   
   function new(string name = "fifo_environment", uvm_component parent);

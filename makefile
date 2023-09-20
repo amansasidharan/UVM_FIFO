@@ -14,5 +14,4 @@ run:
 	$(VSIM)   -coverage  -novopt top +UVM_TESTNAME=test_read_write -l vsim.log -c
        ##add wave -r 
 
-Which Questa 
-which vlog
+
